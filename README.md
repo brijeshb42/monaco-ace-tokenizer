@@ -1,6 +1,6 @@
 ## monaco-ace-tokenizer
 
-[![npm version](https://badge.fury.io/js/monaco-vim.svg)](https://www.npmjs.com/package/monaco-vim)
+[![npm version](https://badge.fury.io/js/monaco-ace-tokenizer.svg)](https://www.npmjs.com/package/monaco-ace-tokenizer)
 
 An alternative tokenizer for monaco-editor using `ace`'s tokenization. See [demo](https://editor-a5ea1.firebaseapp.com). Try to select `kotlin` or `elixir` in the demo.
 
