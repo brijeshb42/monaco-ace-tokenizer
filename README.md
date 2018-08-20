@@ -17,6 +17,9 @@ npm install monaco-ace-tokenizer
 import { registerRulesForLanguage } from 'monaco-vim';
 import KotlinHighlightRules from 'monaco-vim/lib/ace/definitions/kotlin';
 
+monaco.languages.register({
+  id: 'kotlin',
+});
 registerRulesForLanguage('kotlin', new KotlinHighlightRules());
 ```
 
