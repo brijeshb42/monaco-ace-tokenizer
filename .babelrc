@@ -1,0 +1,5 @@
+{
+  "presets": ["env"],
+  "plugins": ["preval", "syntax-dynamic-import", "transform-class-properties"],
+  "comments": false
+}
