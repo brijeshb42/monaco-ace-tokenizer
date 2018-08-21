@@ -6,6 +6,10 @@ An alternative tokenizer for monaco-editor using `ace`'s tokenization. See [demo
 
 This library is relevant only till monarch definitions of all the remaining languages are added directly in `monaco-editor` itself. Untill then, it can be used if you do not want to use web assembly.
 
+I have observed that syntax highlighting for a particular language is better
+with ace's tokenizer when compared to it's monarch counterpart. This may not be
+true for all the languages (I observed for clojure) though.
+
 ### Install
 
 #### Webpack/browserify
