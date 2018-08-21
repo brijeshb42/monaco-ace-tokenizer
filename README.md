@@ -19,8 +19,8 @@ npm install monaco-ace-tokenizer
 
 ```js
 import * as monaco from 'monaco-editor';
-import { registerRulesForLanguage } from 'monaco-vim';
-import KotlinHighlightRules from 'monaco-vim/lib/ace/definitions/kotlin';
+import { registerRulesForLanguage } from 'monaco-ace-tokenizer';
+import KotlinHighlightRules from 'monaco-ace-tokenizer/lib/ace/definitions/kotlin';
 
 monaco.languages.register({
   id: 'kotlin',
@@ -50,7 +50,7 @@ This file can then be used as -
 
 ```js
 import * as monaco from 'monaco-editor';
-import { registerRulesForLanguage } from 'monaco-vim';
+import { registerRulesForLanguage } from 'monaco-ace-tokenizer';
 import SomeLangHighlightRules from './somelang'; // in your project directory
 
 const langId = 'somelang';
