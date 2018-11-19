@@ -3,18 +3,22 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
-const package = require('./package.json');
+const pkg = require('./package.json');
 
+const isLangMode = process.env.BUILD_MODE === 'lang';
 const banner = [
-  `${package.name}`,
-  `Version - ${package.version}`,
-  `Author - ${package.author}`,
+  `${pkg.name}`,
+  `Version - ${pkg.version}`,
+  `Author - ${pkg.author}`,
 ].join('\n');
+
+const definitionsPath = path.join(__dirname, 'src/ace/definitions');
+const languages = fs.readdirSync(definitionsPath);
 
 function getOutput(isProd = false) {
   const data = {
     path: path.resolve(__dirname, 'dist'),
-    filename: '[name].js',
+    filename: `${isLangMode ? 'definitions/' : ''}[name].js`,
   };
 
   if (!isProd) {
@@ -22,9 +26,36 @@ function getOutput(isProd = false) {
   }
 
   data.libraryTarget = 'umd';
-  data.library = 'MonacoAceTokenizer';
+
+  if (isLangMode) {
+    data.library = ['MonacoAceTokenizer', '[name]Definition'];
+  } else {
+    data.library = 'MonacoAceTokenizer';
+  }
+
   data.globalObject = 'self';
   return data;
+}
+
+function getEntry(isProd = false) {
+  const entry = {
+    'monaco-tokenizer': './src/demo.js',
+  };
+
+  if (!isProd) {
+    return entry;
+  }
+
+  if (isLangMode) {
+    delete entry['monaco-tokenizer'];
+    languages.forEach((lang) => {
+      entry[lang.replace('.js', '')] = path.join(definitionsPath, lang);
+    }); 
+  } else {
+    entry['monaco-tokenizer'] = './src/index.js';
+  }
+
+  return entry;
 }
 
 module.exports = (_env, argv) => {
@@ -32,9 +63,7 @@ module.exports = (_env, argv) => {
 
   return {
     target: 'web',
-    entry: {
-      'monaco-tokenizer': isProd ? './src/index.js' : './src/demo.js',
-    },
+    entry: getEntry(isProd),
     output: getOutput(isProd),
     module: {
       rules: [{
@@ -55,6 +84,11 @@ module.exports = (_env, argv) => {
         ],
       }],
     },
+    resolve: {
+      alias: {
+        'monaco-ace-tokenizer': path.resolve(__dirname, 'src'),
+      },
+    },
     plugins: isProd ? [
       new webpack.BannerPlugin(fs.readFileSync('./LICENSE.ace.txt', 'utf-8')),
       new webpack.BannerPlugin(banner),
@@ -69,8 +103,14 @@ module.exports = (_env, argv) => {
         root: 'monaco',
         commonjs: 'monaco-editor',
         commonjs2: 'monaco-editor',
-        amd: 'monaco-editor',
-      }
+        amd: 'vs/editor/editor.main',
+      },
+      'monaco-ace-tokenizer': {
+        root: 'MonacoAceTokenizer',
+        commonjs: 'monaco-ace-tokenizer',
+        commonjs2: 'monaco-ace-tokenizer',
+        amd: 'tokenizer/monaco-tokenizer',
+      },
     } : {},
   }
 };

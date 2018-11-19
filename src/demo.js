@@ -30,7 +30,7 @@ monaco.languages.getLanguages().forEach((lang) => {
 });
 
 langNode.addEventListener('change', function(ev) {
-  monaco.editor.setModelLanguage(editor.model, ev.target.value);
+  monaco.editor.setModelLanguage(editor.getModel(), ev.target.value);
 });
 
 editor.focus();

@@ -1,8 +1,9 @@
 /* eslint-disable */
 
-var oop = require("../oop");
-var DocCommentHighlightRules = require("../doc_comment_highlight_rules").DocCommentHighlightRules;
-var TextHighlightRules = require("../text_highlight_rules").TextHighlightRules;
+var MonacoAceTokenizer = require('monaco-ace-tokenizer');
+var oop = MonacoAceTokenizer.oop;
+var TextHighlightRules = MonacoAceTokenizer.TextHighlightRules;
+var DocCommentHighlightRules = MonacoAceTokenizer.DocCommentHighlightRules;
 
 var ScalaHighlightRules = function() {
 

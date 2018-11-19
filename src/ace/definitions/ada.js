@@ -29,8 +29,9 @@
  *
  * ***** END LICENSE BLOCK ***** */
 
-var oop = require("../oop");
-var TextHighlightRules = require("../text_highlight_rules").TextHighlightRules;
+var MonacoAceTokenizer = require('monaco-ace-tokenizer');
+var oop = MonacoAceTokenizer.oop;
+var TextHighlightRules = MonacoAceTokenizer.TextHighlightRules;
 
 var AdaHighlightRules = function() {
 var keywords = "abort|else|new|return|abs|elsif|not|reverse|abstract|end|null|accept|entry|select|" +

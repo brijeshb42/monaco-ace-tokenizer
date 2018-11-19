@@ -69,3 +69,51 @@ import { AVAILABLE_LANGUAGES } from 'monaco-ace-tokenizer';
 ```
 
 See [src/lazy.js](https://github.com/brijeshb42/monaco-ace-tokenizer/tree/master/src/lazy.js) if you want to register languages but only load their definitions dynamically when they are used for the first time in your editor.
+
+#### AMD
+
+If you are using the official guide to integrate AMD version of monaco, this is how you can use `monaco-ace-tokenizer` -
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+</head>
+<body>
+  <div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+
+  <script src="https://unpkg.com/monaco-editor/min/vs/loader.js"></script>
+  <script>
+    require.config({
+      paths: {
+        'vs': 'https://unpkg.com/monaco-editor/min/vs',
+        'tokenizer': 'https://unpkg.com/monaco-ace-tokenizer/dist',
+      }
+    });
+    require(['vs/editor/editor.main', 'tokenizer/monaco-tokenizer', 'tokenizer/definitions/kotlin'], function(a, MonacoAceTokenizer, KotlinDefinition) {
+      monaco.languages.register({
+        id: 'kotlin'
+      });
+      MonacoAceTokenizer.registerRulesForLanguage('kotlin', new KotlinDefinition.default);
+      var editor = monaco.editor.create(document.getElementById('container'), {
+        value: '',
+        language: 'kotlin'
+      });
+    });
+    /* To load All languages */
+    require(['vs/editor/editor.main', 'tokenizer/monaco-tokenizer'], function(_, MonacoAceTokenizer) {
+      MonacoAceTokenizer.AVAILABLE_LANGUAGES.forEach(lang => {
+        require(['tokenizer/definitions/' + lang], function(LangDefinition) {
+          monaco.languages.register({
+            id: lang,
+          });
+          MonacoAceTokenizer.registerRulesForLanguage(lang, new LangDefinition.default);
+        });
+      });
+    });
+  </script>
+</body>
+</html>
+```

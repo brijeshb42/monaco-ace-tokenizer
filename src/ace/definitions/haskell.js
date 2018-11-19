@@ -35,8 +35,9 @@
  * fileTypes                                                                            *
  ****************************************************************************************/
 
-var oop = require("../oop");
-var TextHighlightRules = require("../text_highlight_rules").TextHighlightRules;
+var MonacoAceTokenizer = require('monaco-ace-tokenizer');
+var oop = MonacoAceTokenizer.oop;
+var TextHighlightRules = MonacoAceTokenizer.TextHighlightRules;
 
 var HaskellHighlightRules = function() {
     // regexp must not have capturing parentheses. Use (?:) instead.
