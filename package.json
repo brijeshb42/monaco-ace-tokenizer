@@ -1,20 +1,29 @@
 {
   "name": "monaco-ace-tokenizer",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Syntax highlighting support for additional languages in moaco editor.",
   "main": "./lib/index.js",
+  "module": "./es/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack-dev-server --mode development --host=0.0.0.0 --port=8080",
-    "clean": "rm -rf lib dist local",
+    "start": "NODE_ENV=development webpack-dev-server --mode development --host=0.0.0.0 --port=8080",
+    "clean": "rm -rf lib dist local es",
     "dist": "webpack --mode production",
-    "babel": "NODE_ENV=production babel ./src -d lib --ignore 'demo.js'",
+    "babel": "NODE_ENV=production babel ./src -d lib --ignore 'src/demo.js'",
+    "babel:es": "NODE_ENV=production BABEL_ENV=es babel ./src -d es --ignore 'src/demo.js'",
     "build:base": "webpack --mode production",
     "build:languages": "BUILD_MODE=lang webpack --mode production",
-    "build": "npm run clean && npm run babel && npm run build:base && npm run build:languages",
-    "local": "mkdir -p local && cp -r lib dist package.json local",
-    "prepublishOnly": "npm run build"
+    "build": "yarn clean && yarn babel && yarn babel:es && yarn build:base && yarn build:languages",
+    "local": "mkdir -p local && cp -r lib es dist package.json local",
+    "prepublishOnly": "yarn build"
   },
+  "files": [
+    "lib",
+    "es",
+    "dist",
+    "LICENSE",
+    "LICENSE.ace.txt"
+  ],
   "keywords": [
     "monaco-editor",
     "syntax highlighting"
@@ -22,22 +31,25 @@
   "author": "Brijesh Bittu <brijesh@bitwiser.in> (http://bitwiser.in/)",
   "license": "MIT",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-plugin-preval": "^3.0.0",
-    "babel-plugin-syntax-dynamic-import": "^6.18.0",
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-preset-env": "^1.7.0",
-    "css-loader": "^1.0.0",
-    "html-webpack-plugin": "^3.2.0",
-    "monaco-editor": "0.15.5",
-    "monaco-editor-webpack-plugin": "^1.5.1",
-    "style-loader": "^0.22.1",
-    "webpack": "^4.16.5",
-    "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.5"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-preval": "^5.0.0",
+    "css-loader": "^3.5.2",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.2.0",
+    "monaco-editor": "0.20.0",
+    "monaco-editor-webpack-plugin": "1.9.0",
+    "style-loader": "^1.1.4",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "peerDependencies": {
-    "monaco-editor": "^0.14.0 || ^0.15.0"
+    "monaco-editor": "^0.18.0 || ^0.19.0 || ^0.20.0"
   }
 }

@@ -8,7 +8,7 @@ export function loadLanguage(languageId) {
     return languagePromises[languageId];
   }
 
-  return import(`./ace/definitions/${languageId}`)
+  return import(/* webpackChunkName: "[request]" */ `./ace/definitions/${languageId}`)
     .then(({ default: HighlightRules }) => {
       const rules = new HighlightRules();
       return registerRulesForLanguage(languageId, rules);

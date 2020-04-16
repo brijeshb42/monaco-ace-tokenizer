@@ -5,4 +5,4 @@ export { AVAILABLE_LANGUAGES, registerRulesForLanguage } from './languages';
 import * as oop from './ace/oop';
 export {
   oop,
-}
+};

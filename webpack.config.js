@@ -15,6 +15,38 @@ const banner = [
 const definitionsPath = path.join(__dirname, 'src/ace/definitions');
 const languages = fs.readdirSync(definitionsPath);
 
+function getExternals(isProd = false) {
+  if (!isProd) {
+    return {};
+  }
+
+  if (!isLangMode) {
+    return {
+      'monaco-editor': {
+        root: 'monaco',
+        commonjs: 'monaco-editor',
+        commonjs2: 'monaco-editor',
+        amd: 'vs/editor/editor.main',
+      },
+      'monaco-editor/esm/vs/editor/editor.api': {
+        root: 'monaco',
+        commonjs: 'monaco-editor',
+        commonjs2: 'monaco-editor',
+        amd: 'vs/editor/editor.main',
+      },
+    }
+  }
+
+  return {
+    'monaco-ace-tokenizer': {
+      root: 'MonacoAceTokenizer',
+      commonjs: 'monaco-ace-tokenizer',
+      commonjs2: 'monaco-ace-tokenizer',
+      amd: 'tokenizer/monaco-tokenizer',
+    },
+  };
+}
+
 function getOutput(isProd = false) {
   const data = {
     path: path.resolve(__dirname, 'dist'),
@@ -76,6 +108,9 @@ module.exports = (_env, argv) => {
           },
         },
       }, {
+        test: /\.ttf$/,
+        use: 'file-loader',
+      }, {
         test: /\.css$/,
         // exclude: /node_modules/,
         use: [
@@ -96,21 +131,11 @@ module.exports = (_env, argv) => {
       new HtmlWebpackPlugin({
         template: path.join(__dirname, './index.html'),
       }),
-      new MonacoWebpackPlugin(),
+      new MonacoWebpackPlugin({
+        languages: ['clojure'],
+        features: ['!multicursor'],
+      }),
     ],
-    externals: isProd ? {
-      'monaco-editor': {
-        root: 'monaco',
-        commonjs: 'monaco-editor',
-        commonjs2: 'monaco-editor',
-        amd: 'vs/editor/editor.main',
-      },
-      'monaco-ace-tokenizer': {
-        root: 'MonacoAceTokenizer',
-        commonjs: 'monaco-ace-tokenizer',
-        commonjs2: 'monaco-ace-tokenizer',
-        amd: 'tokenizer/monaco-tokenizer',
-      },
-    } : {},
+    externals: getExternals(isProd),
   }
 };
