@@ -1,7 +1,7 @@
 {
   "name": "monaco-ace-tokenizer",
-  "version": "0.2.0",
-  "description": "Syntax highlighting support for additional languages in moaco editor.",
+  "version": "0.2.1",
+  "description": "Syntax highlighting support for additional languages in monaco editor.",
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "scripts": {

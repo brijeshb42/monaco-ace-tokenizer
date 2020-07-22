@@ -70,16 +70,15 @@ function getOutput(isProd = false) {
 }
 
 function getEntry(isProd = false) {
-  const entry = {
-    'monaco-tokenizer': './src/demo.js',
-  };
+  const entry = {};
 
   if (!isProd) {
-    return entry;
+    return {
+      'monaco-tokenizer': './src/demo.js',
+    };
   }
 
   if (isLangMode) {
-    delete entry['monaco-tokenizer'];
     languages.forEach((lang) => {
       entry[lang.replace('.js', '')] = path.join(definitionsPath, lang);
     }); 
