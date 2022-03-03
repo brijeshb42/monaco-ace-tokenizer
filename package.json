@@ -1,6 +1,6 @@
 {
   "name": "monaco-ace-tokenizer",
-  "version": "0.2.1-a",
+  "version": "0.2.2",
   "description": "Syntax highlighting support for additional languages in monaco editor.",
   "main": "./lib/index.js",
   "module": "./es/index.js",
