@@ -210,6 +210,12 @@ var keywords = "break|case|catch|classdef|continue|else|elseif|end|for|function|
             token : "constant.numeric", // float
             regex : "[+-]?\\d+(?:(?:\\.\\d*)?(?:[eE][+-]?\\d+)?)?\\b"
         }, {
+            token : "string",           // " string
+            regex : '".*?"'
+        }, {
+            token : "string",           // character
+            regex : "'.'"
+        }, {
             token : keywordMapper,
             regex : "[a-zA-Z_$][a-zA-Z0-9_$]*\\b"
         }, {
