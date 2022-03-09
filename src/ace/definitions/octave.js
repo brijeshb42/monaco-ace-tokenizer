@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* ***** BEGIN LICENSE BLOCK *****
  * Distributed under the BSD license:
  *
@@ -26,16 +27,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * ***** END LICENSE BLOCK ***** */    
+ * ***** END LICENSE BLOCK ***** */
 var MonacoAceTokenizer = require('monaco-ace-tokenizer');
 var oop = MonacoAceTokenizer.oop;
 var TextHighlightRules = MonacoAceTokenizer.TextHighlightRules;
 
 var OctaveHighlightRules = function() {
-
-var keywords = (
-        "break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while"
-    );
+var keywords = "break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while";
 
     var builtinConstants = (
         "true|false|inf|Inf|nan|NaN|eps|pi|ans|nargin|nargout|varargin|varargout"
@@ -249,10 +247,8 @@ var keywords = (
             defaultToken: "comment"
         }]
     };
-
-    this.normalizeRules();
 };
 
 oop.inherits(OctaveHighlightRules, TextHighlightRules);
 
-exports.OctaveHighlightRules = OctaveHighlightRules;
+export default OctaveHighlightRules;
